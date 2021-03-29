@@ -1,5 +1,7 @@
 ﻿//Development configuration options
 module.exports = {
+    db: 'mongodb://localhost/finalproject-db',
     //To sign the session identifier, use a secret string
-    sessionSecret: 'developmentSessionSecret'
+    sessionSecret: 'developmentSessionSecret', 
+    secretKey: 'secret_key'
 };
