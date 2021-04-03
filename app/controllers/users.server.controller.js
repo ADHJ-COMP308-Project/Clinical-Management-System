@@ -44,7 +44,8 @@ exports.signup = function (req, res, next) {
   user.save(function (err) {
     if (err) {
       // Call the next middleware with an error message
-      return next(err);
+      res.json(getErrorMessage(err))
+      return next(getErrorMessage(err));
     } else {
       // Use the 'response' object to send a JSON response
       res.json(user);
@@ -57,7 +58,7 @@ exports.list = function (req, res, next) {
   // Use the 'User' instance's 'find' method to retrieve a new user document
   User.find({}, function (err, users) {
     if (err) {
-      return next(err);
+      return next(getErrorMessage(err));
     } else {
       res.json(users);
     }
@@ -80,7 +81,7 @@ exports.userByID = function (req, res, next, id) {
     (err, user) => {
       if (err) {
         // Call the next middleware with an error message
-        return next(err);
+        return next(getErrorMessage(err));
       } else {
         // Set the 'req.user' property
         req.user = user;
@@ -96,8 +97,8 @@ exports.update = function (req, res, next) {
   console.log(req.body);
   User.findByIdAndUpdate(req.user.id, req.body, function (err, user) {
     if (err) {
-      console.log(err);
-      return next(err);
+      console.log(getErrorMessage(err));
+      return next(getErrorMessage(err));
     }
     res.json(user);
   });
@@ -105,7 +106,7 @@ exports.update = function (req, res, next) {
 // delete a user by id
 exports.delete = function (req, res, next) {
   User.findByIdAndRemove(req.user.id, req.body, function (err, user) {
-    if (err) return next(err);
+    if (err) return next(getErrorMessage(err));
     res.json(user);
   });
 };
@@ -113,16 +114,23 @@ exports.delete = function (req, res, next) {
 // authenticates a user
 exports.authenticate = function (req, res, next) {
   // Get credentials from request
-  console.log(req.body);
   const username = req.body.auth.username;
   const password = req.body.auth.password;
+  console.log("username from request" + username);
+  console.log("password form request" + password);
 
-  console.log(password);
-  console.log(username);
   //find the user with given username using static method findOne
   User.findOne({ username: username }, (err, user) => {
     if (err) {
+      console.log("getErrorMessage: " + err);
       return next(err);
+    }
+    if (!user) {//if user is not found for corresponding email address
+      res.json({
+        status: 401,
+        message: "No user found with this Email address", 
+        data: null,
+      });
     } else {
       console.log(user);
       //compare passwords
@@ -141,20 +149,24 @@ exports.authenticate = function (req, res, next) {
           maxAge: jwtExpirySeconds * 1000,
           httpOnly: true,
         });
-        res.status(200).send({ username: user.username, role: user.role, user: user });
-        //
-        //res.json({status:"success", message: "user found!!!", data:{user:
-        //user, token:token}});
+        res
+          .status(200)
+          .send({
+            id: user._id,
+            username: user.username,
+            role: user.role,
+            user: user,
+          });
 
         req.user = user;
-		req.session.user = user;
-		console.log("req.session.user"+ req.session.user)
+        req.session.user = user;
+        console.log("req.session.user" + req.session.user);
         //call the next middleware
         next();
-      } else {
+      } else { //if password is not valid
         res.json({
-          status: "error",
-          message: "Invalid username/password!!!",
+          status: 401,
+          message: "Invalid password!!!",
           data: null,
         });
       }

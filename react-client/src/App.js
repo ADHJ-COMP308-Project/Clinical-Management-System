@@ -7,6 +7,8 @@ import {
   Redirect,
 } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 
 import "./App.css";
 
@@ -15,54 +17,52 @@ import axios from "axios";
 import PatientRegistration from "./components/PatientRegistration";
 import NurseRegistration from "./components/NurseRegistration";
 import Login from "./components/Login";
+
 // import Main from "./components/Main";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+        <Navbar collapseOnSelect bg="light" expand="lg" className="fixed-top">
           <div className="container">
-            <Link className="navbar-brand" to={"/login"}>
+            <Link
+              className="navbar-brand d-inline-block align-top"
+              to={"/login"}
+            >
               Final Project
             </Link>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul className="navbar-nav ">
-                <li className="nav-item">
-                  <Link className="nav-link" to={"/login"}>
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={"/patientRegistration"}>
-                    Patient Sign up
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={"/nurseRegisteration"}>
-                    Nurse Sign up
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <Link className="nav-link" to={"/patientRegistration"}>
+                  Patient Sign up
+                </Link>
+
+                <Link className="nav-link" to={"/nurseRegisteration"}>
+                  Nurse Sign up
+                </Link>
+              </Nav>
+            </Navbar.Collapse>
           </div>
-        </nav>
+        </Navbar>
 
         <div className="auth-wrapper">
           <div className="auth-inner">
-            <Switch>
+            <Route exact path="/">
+              <Redirect to="/login" />            
+            </Route>
+            {/* <Switch> */}
               <Route
                 path="/patientRegistration"
-                exact
-                render={(props) => <PatientRegistration />}
+                render={() => <PatientRegistration />}
               />
               <Route
                 path="/nurseRegisteration"
-                exact
-                render={(props) => <NurseRegistration />}
+                render={() => <NurseRegistration />}
               />
-              <Route path="/" render={() => <Login />} />
-            </Switch>
+              <Route path="/login" render={() => <Login />} />
+            {/* </Switch> */}
           </div>
         </div>
       </div>
