@@ -21,7 +21,7 @@ module.exports = function () {
   // Load the 'User' model
   require("../app/models/user.server.model");
   // Load the 'DailyInformation' model
-  //require("../app/models/dailyInfo.server.model");
+  require("../app/models/dailyReport.server.model");
   // Return the Mongoose connection instance
   return db;
 };
