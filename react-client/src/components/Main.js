@@ -19,6 +19,15 @@ function Main(props) {
       console.log(e);
     }
   };
+  const addDailyReport =()=>{
+    props.history.push({
+      pathname: "/dailyReportForm",
+      state: {
+        role:role,
+        username:username
+      }
+    });
+  };
 
   useEffect(() => {
 
@@ -29,6 +38,16 @@ function Main(props) {
     <div>
       <h1>Hi, {role} {username}</h1>
       <Button className="btn btn-danger"onClick={deleteCookie}>Log Out</Button>
+      {role=="patient"?(
+        <div>
+        <Button className="btn btn-primary" onClick={addDailyReport}>Add Report</Button>
+      </div>
+      ):(
+        <div>
+          
+        </div>
+      )}
+      
     </div>
 
   );

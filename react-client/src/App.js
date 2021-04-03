@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
   Link,
-  Redirect,
+  Redirect
 } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -17,6 +17,8 @@ import axios from "axios";
 import PatientRegistration from "./components/PatientRegistration";
 import NurseRegistration from "./components/NurseRegistration";
 import Login from "./components/Login";
+
+import DailyReportForm from "./components/DailyReportForm";
 
 // import Main from "./components/Main";
 
@@ -50,18 +52,20 @@ function App() {
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Route exact path="/">
-              <Redirect to="/login" />            
+              <Redirect to="/login" />
             </Route>
             {/* <Switch> */}
-              <Route
-                path="/patientRegistration"
-                render={() => <PatientRegistration />}
-              />
-              <Route
-                path="/nurseRegisteration"
-                render={() => <NurseRegistration />}
-              />
-              <Route path="/login" render={() => <Login />} />
+            <Route
+              path="/patientRegistration"
+              render={() => <PatientRegistration />}
+            />
+            <Route
+              path="/nurseRegisteration"
+              render={() => <NurseRegistration />}
+            />
+            <Route path="/login" render={() => <Login />} />
+
+            <Route path="/dailyReportForm" render={()=><DailyReportForm/>}/>
             {/* </Switch> */}
           </div>
         </div>
