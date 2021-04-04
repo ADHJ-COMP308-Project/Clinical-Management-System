@@ -11,6 +11,10 @@ module.exports =function(app){
 
     app.route('/api/dailyReports').get(dailyReport.list);
 
+    app.route('/api/dailyReports/users/:patientId').get(dailyReport.read);
+    
+    app.route('/api/dailyReports/latest/users/:latestReportPatientId').get(dailyReport.read);
+
     app.route('/api/dailyReports/:dailyReportId')
     .get(dailyReport.read)
     .put(
@@ -23,5 +27,7 @@ module.exports =function(app){
             dailyReport.delete);
 
             app.param('dailyReportId',dailyReport.infoByID);
+            app.param('patientId',dailyReport.reportsOfPatient);
+            app.param('latestReportPatientId',dailyReport.latestReportOfPatient);
         
 };

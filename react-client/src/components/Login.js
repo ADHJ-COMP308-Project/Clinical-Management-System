@@ -16,7 +16,8 @@ function Login() {
   const [loginPassword, setLoginPassword] = useState("");
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [user, setUser] = useState({});
   const [errorMessage, setErrorMessage] = useState([]);
   const [ifError, setIfError] = useState(false);
 
@@ -29,10 +30,30 @@ function Login() {
   const readCookie = async () => {
     try {
       const response = await axios.get("http://localhost:3000/read_cookie");
+      console.log("in readCookie");
+      console.log("response"+response.data);
       if (response.data.loggedIn == true) {
-        setRole(response.data.user.role);
-        setUsername(response.data.user.username);
-        console.log("Username" + response.data.username);
+        console.log("response.log.loggedIn: "+ response.data.loggedIn);
+        console.log("response.data.id: "+response.data.id);
+        console.log("response.data.username: "+ response.data.username);
+        console.log("response.data.role: "+response.data.role);
+        console.log("response.data.user: "+ response.data.user);
+
+        var responseRole = response.data.role;
+        var responseUsername = response.data.username;
+        var responseUserId = response.data.id;
+        var responseUser = response.data.user;
+        setUsername(responseUsername);
+        setUser(responseUser);
+        setUserId(responseUserId);
+        setIfError(false);
+        setRole(responseRole);
+        
+        console.log("Testing SetValues from read cookie :");
+        console.log("Role: "+role);
+        console.log("Username: "+username);
+        console.log("userId: "+userId);
+        console.log("Testing Ends-------")
       } else {
         console.log("in read cookie. user not found");
         setRole("");
@@ -107,10 +128,14 @@ function Login() {
           setIfError(true);
           console.log("In response error: " + errorMessage);
         } else {
-          console.log("response.data.role: " + response.data.role);
+          console.log("response.data.user._id: " + response.data.user._id);
           if (response.data.role !== undefined) { //if logged in successfully
             setRole(response.data.role);
             setUsername(response.data.username);
+            setUser(response.data.user);
+            setUserId(response.data.user._id);
+            setIfError(false);
+            console.log("user Id Set: "+ userId);
           }
         }
       })
@@ -176,13 +201,13 @@ function Login() {
           </Form.Row>
 
           <div className="mt-3">
-            <p class="text-center">
+            <p className="text-center">
               Not have an account?{" "}
               <a href="/patientRegistration">
                 Sign Up as a Patient
               </a>
             </p>
-            <p class="text-center">
+            <p className="text-center">
               Not a patient?{" "}
               <a  href="/nurseRegisteration">
                 Sign Up as a Nurse
@@ -196,6 +221,10 @@ function Login() {
           setRole={setRole}
           username={username}
           setUsername={setUsername}
+          user = {user}
+          setUser={setUser}
+          userId={userId}
+          setUserId={setUserId}
         />
       )}
     </div>

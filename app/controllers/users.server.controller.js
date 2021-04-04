@@ -138,7 +138,7 @@ exports.authenticate = function (req, res, next) {
         // Create a new token with the user id in the payload
         // and which expires 300 seconds after issue
         const token = jwt.sign(
-          { id: user._id, username: user.username, role: user.role },
+          { id: user._id, username: user.username, role: user.role, user: user },
           jwtKey,
           { algorithm: "HS256", expiresIn: jwtExpirySeconds }
         );
@@ -241,10 +241,11 @@ exports.isSignedIn = (req, res) => {
     return res.status(400).end();
   }
 
+  console.log("payload.user._id: "+payload.user._id);
   // Finally, token is ok, return the username given in the token
   res
     .status(200)
-    .send({ loggedIn: true, username: payload.username, user: payload });
+    .send({id: payload.user._id, loggedIn: true, username: payload.username, user: payload.user, role: payload.role });
 };
 
 //isAuthenticated() method to check whether a user is currently authenticated
