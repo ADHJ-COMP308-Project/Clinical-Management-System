@@ -225,7 +225,7 @@ function NurseRegistration(props) {
         </Form.Row>
       </Form>
       <div className="mt-3">
-        <p class="text-center">
+        <p className="text-center">
           Already have an account? <a href="/login">Log In</a>
         </p>
       </div>

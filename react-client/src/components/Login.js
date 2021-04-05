@@ -11,7 +11,7 @@ import Main from "./Main";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
-function Login() {
+function Login({isAuthenticated,setIsAuthenticated,setAuthData}) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [role, setRole] = useState("");
@@ -31,32 +31,32 @@ function Login() {
     try {
       const response = await axios.get("http://localhost:3000/read_cookie");
       console.log("in readCookie");
-      console.log("response"+response.data);
+      console.log("response" + response.data);
       if (response.data.loggedIn == true) {
-        console.log("response.log.loggedIn: "+ response.data.loggedIn);
-        console.log("response.data.id: "+response.data.id);
-        console.log("response.data.username: "+ response.data.username);
-        console.log("response.data.role: "+response.data.role);
-        console.log("response.data.user: "+ response.data.user);
+        console.log("response.log.loggedIn: " + response.data.loggedIn);
+        console.log("response.data.id: " + response.data.id);
+        console.log("response.data.username: " + response.data.username);
+        console.log("response.data.role: " + response.data.role);
+        console.log("response.data.user: " + response.data.user);
 
         var responseRole = response.data.role;
         var responseUsername = response.data.username;
         var responseUserId = response.data.id;
         var responseUser = response.data.user;
+
         setUsername(responseUsername);
         setUser(responseUser);
         setUserId(responseUserId);
         setIfError(false);
+        setAuthData(responseUser);
+        setIsAuthenticated(true);
+
         setRole(responseRole);
-        
-        console.log("Testing SetValues from read cookie :");
-        console.log("Role: "+role);
-        console.log("Username: "+username);
-        console.log("userId: "+userId);
-        console.log("Testing Ends-------")
       } else {
         console.log("in read cookie. user not found");
+        setIsAuthenticated(false);
         setRole("");
+
       }
     } catch (err) {
       console.log(err);
@@ -121,7 +121,8 @@ function Login() {
       .post(url, data)
       .then((response) => {
         console.log("response.data.message: " + response.data.status);
-        if (response.data.status == 401) { //if user not found or password is invalid returns message from rest server
+        if (response.data.status == 401) {
+          //if user not found or password is invalid returns message from rest server
           var err = errorMessage;
           err.push(response.data.message);
           setErrorMessage(err);
@@ -129,13 +130,16 @@ function Login() {
           console.log("In response error: " + errorMessage);
         } else {
           console.log("response.data.user._id: " + response.data.user._id);
-          if (response.data.role !== undefined) { //if logged in successfully
-            setRole(response.data.role);
+          if (response.data.role !== undefined) {
+            //if logged in successfully
+
             setUsername(response.data.username);
             setUser(response.data.user);
             setUserId(response.data.user._id);
+            setAuthData(response.data.user);
+            setIsAuthenticated(true);
+            setRole(response.data.role);
             setIfError(false);
-            console.log("user Id Set: "+ userId);
           }
         }
       })
@@ -150,7 +154,7 @@ function Login() {
 
   return (
     <div className="main-wrapper">
-      {role === "" ? (
+      {isAuthenticated ===false ? (
         <div className="login-wrapper">
           <h1>Login</h1>
           <div>
@@ -203,32 +207,30 @@ function Login() {
           <div className="mt-3">
             <p className="text-center">
               Not have an account?{" "}
-              <a href="/patientRegistration">
-                Sign Up as a Patient
-              </a>
+              <a href="/patientRegistration">Sign Up as a Patient</a>
             </p>
             <p className="text-center">
               Not a patient?{" "}
-              <a  href="/nurseRegisteration">
-                Sign Up as a Nurse
-              </a>
+              <a href="/nurseRegisteration">Sign Up as a Nurse</a>
             </p>
           </div>
         </div>
       ) : (
         <Main
-          role={role}
-          setRole={setRole}
           username={username}
           setUsername={setUsername}
-          user = {user}
+          user={user}
           setUser={setUser}
           userId={userId}
           setUserId={setUserId}
+          role={role}
+          setRole={setRole}
+          setIsAuthenticated={setIsAuthenticated}
         />
       )}
     </div>
   );
+
 }
 
 export default withRouter(Login);

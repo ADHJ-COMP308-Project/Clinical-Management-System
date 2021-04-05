@@ -3,21 +3,24 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
 
 function Main(props) {
+  console.log(props);
+  const { userId, setUserId } = props;
   const { username, setUsername } = props;
   const { user, setUser } = props;
-  const { userId, setUserId } = props;
+  const {setIsAuthenticated} = props;
   const [report, setReport] = useState({});
   const [dailyReportRequired, setDailyReportRequired] = useState(false);
   const { role, setRole } = props;
-  
 
   console.log("user._id: " + userId);
 
   const deleteCookie = async () => {
     try {
       await axios.get("/signout");
+      setIsAuthenticated(false);
       setRole("");
     } catch (e) {
       console.log(e);
@@ -33,26 +36,23 @@ function Main(props) {
     });
   };
 
-
   const getLatestReport = async () => {
-    console.log("in getLatestReport. userId: "+userId);
+    console.log("in getLatestReport. userId: " + userId);
     const url = "http://localhost:3000/api/dailyReports/latest/users/" + userId;
     try {
       const response = await axios.get(url);
-      console.log(response);
+      console.log("response:"+response);
 
-      if (!response.data.message=="No records found") {
-
+      if (!response.data.message == "No records found") {
         console.log("No old records for user: " + username);
         setDailyReportRequired(true);
         return false;
-
       } else {
+        
         //if no timestamps in the response display add report button
-        if (!response.data.createdAt||response.data.createdAt==null) { 
+        if (!response.data.createdAt || response.data.createdAt == null) {
           setDailyReportRequired(true);
         } else {
-
           //display the add report button only if the user have not added daily report for 24 hours
           console.log("response.data: " + response.data);
           console.log("Response.data.createdAt" + response.data.createdAt);
@@ -71,7 +71,6 @@ function Main(props) {
           } else {
             setDailyReportRequired(false);
           }
-
         }
       }
     } catch (err) {
@@ -79,11 +78,18 @@ function Main(props) {
     }
   };
 
+
+  // const getListOfPreviousVisits = async()=>{
+  //   const url = ""
+  // };
+
   useEffect(() => {
-    if(role=='patient'){
+    if (role == "patient") {
       getLatestReport();
     }
-    
+    // if (role=="nurse"){
+
+    // }
   }, []);
 
   return (
@@ -96,20 +102,24 @@ function Main(props) {
       </Button>
       {role == "patient" ? (
         <div>
-          {dailyReportRequired==true?(
+          {dailyReportRequired == true ? (
             <div>
-            <Button className="btn btn-primary" onClick={addDailyReport}>
-              Add Report
-            </Button>
-          </div>
-          ):(<div>
-
-          </div>)}
+              <Button className="btn btn-primary" onClick={addDailyReport}>
+                Add Report
+              </Button>
+            </div>
+          ) : (
+            <div>
+              {/* {code if daily report not required} */}
+            </div>
+          )}
         </div>
-        
       ) : (
         <div>
+          <h2>Previous clinical Information</h2>
+          <ListGroup>
 
+          </ListGroup>
         </div>
       )}
     </div>
