@@ -151,9 +151,10 @@ exports.read = function (req, res) {
 };
 
 exports.update = function (req, res) {
-  DailyReport.findOneAndUpdate(
-    { _id: req.dailyReportId },
+  DailyReport.findByIdAndUpdate(
+    req.dailyReportId,
     req.body,
+    {useFindAndModify: false},
     function (err, dailyReport) {
       if (err) return next(err);
       res.json(dailyReport);
@@ -164,7 +165,7 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   DailyReport.findOneAndRemove(
     { _id: req.dailyReportId },
-    req.body,
+    req.body,{useFindAndModify: false},
     function (err, dailyReport) {
       if (err) return next(err);
       res.json(dailyReport);

@@ -64,6 +64,7 @@ module.exports = function () {
     // Load the 'index' routing file
     require('../app/routes/users.server.routes.js')(app);
     require('../app/routes/dailyReport.server.routes.js')(app);
+    require('../app/routes/emergencyAlert.server.routes.js')(app);
 
     // Configure static file serving
     app.use(express.static('./public'));

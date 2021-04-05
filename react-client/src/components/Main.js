@@ -4,16 +4,24 @@ import { withRouter } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
+import EmergencyAlertForm from "./Forms/EmergencyAlertForm";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 function Main(props) {
   console.log(props);
   const { userId, setUserId } = props;
   const { username, setUsername } = props;
   const { user, setUser } = props;
-  const {setIsAuthenticated} = props;
+  const { setIsAuthenticated } = props;
   const [report, setReport] = useState({});
   const [dailyReportRequired, setDailyReportRequired] = useState(false);
   const { role, setRole } = props;
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   console.log("user._id: " + userId);
 
@@ -36,19 +44,28 @@ function Main(props) {
     });
   };
 
+  // const addEmergencyAlert = () => {
+  //   props.history.push({
+  //     pathname: "/emergencyAlertForm",
+  //     state: {
+  //       role: role,
+  //       username: username,
+  //     },
+  //   });
+  // };
+
   const getLatestReport = async () => {
     console.log("in getLatestReport. userId: " + userId);
     const url = "http://localhost:3000/api/dailyReports/latest/users/" + userId;
     try {
       const response = await axios.get(url);
-      console.log("response:"+response);
+      console.log("response:" + response);
 
       if (!response.data.message == "No records found") {
         console.log("No old records for user: " + username);
         setDailyReportRequired(true);
         return false;
       } else {
-        
         //if no timestamps in the response display add report button
         if (!response.data.createdAt || response.data.createdAt == null) {
           setDailyReportRequired(true);
@@ -78,28 +95,24 @@ function Main(props) {
     }
   };
 
-
   // const getListOfPreviousVisits = async()=>{
   //   const url = ""
   // };
 
   useEffect(() => {
-    if (role == "patient") {
+    if (user.role == "patient") {
       getLatestReport();
     }
-    // if (role=="nurse"){
-
-    // }
+    if (user.role=="nurse"){
+      //to do if nurse
+    }
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h1>
         Hi, {role} {username}
       </h1>
-      <Button className="btn btn-danger" onClick={deleteCookie}>
-        Log Out
-      </Button>
       {role == "patient" ? (
         <div>
           {dailyReportRequired == true ? (
@@ -109,17 +122,42 @@ function Main(props) {
               </Button>
             </div>
           ) : (
-            <div>
-              {/* {code if daily report not required} */}
-            </div>
+            <div>{/* {code if daily report not required} */}</div>
           )}
+          <hr></hr>
+          <Alert variant="secondary">
+          <div className="row">
+            <div className="col-md-12">
+              <Form.Control 
+                placeholder="Send an Emergency Alert to the Doctor...."
+                onClick={handleShow}
+              />
+              
+                <Modal
+                  show={show}
+                  size="lg"
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                  onHide={handleClose}
+                >
+                  <EmergencyAlertForm
+                    handleClose={handleClose}
+                    handleShow={handleShow}
+                    role={role}
+                    username={username}
+                  />
+                </Modal>
+              {/* <Button className="btn btn-danger" onClick={addEmergencyAlert}>
+                 Send Emergency Alert
+               </Button> */}
+            </div>
+          </div>
+          </Alert>
         </div>
       ) : (
         <div>
           <h2>Previous clinical Information</h2>
-          <ListGroup>
-
-          </ListGroup>
+          <ListGroup></ListGroup>
         </div>
       )}
     </div>

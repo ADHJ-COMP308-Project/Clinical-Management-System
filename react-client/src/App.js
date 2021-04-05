@@ -19,8 +19,8 @@ import NurseRegistration from "./components/NurseRegistration";
 import Login from "./components/Login";
 import NavBarMenu from "./components/Navbar/NavbarMenu";
 
-import DailyReportForm from "./components/DailyReportForm";
-
+import DailyReportForm from "./components/Forms/DailyReportForm";
+import EmergencyAlertForm from "./components/Forms/EmergencyAlertForm";
 // import Main from "./components/Main";
 
 function App() {
@@ -29,25 +29,37 @@ function App() {
   return (
     <Router>
       <div className="App">
-          <div>
-            <Route
-              render={(props) => (
-                <NavBarMenu
-                  isAuthenticated={isAuthenticated}
-                  setIsAuthenticated={setIsAuthenticated}
-                  user={authData}
-                  setUser={setAuthData}
-                />
-              )}
-            />
-          </div>
+        <div>
+          <Route
+            render={(props) => (
+              <NavBarMenu
+                isAuthenticated={isAuthenticated}
+                setIsAuthenticated={setIsAuthenticated}
+                user={authData}
+                setUser={setAuthData}
+              />
+            )}
+          />
+        </div>
 
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        {/* <Switch> */}
         <div className="auth-wrapper">
           <div className="auth-inner">
-            <Route exact path="/">
-              <Redirect to="/login" />
-            </Route>
-            {/* <Switch> */}
+            <div>
+              <Route
+                path="/login"
+                render={() => (
+                  <Login
+                    isAuthenticated={isAuthenticated}
+                    setIsAuthenticated={setIsAuthenticated}
+                    setAuthData={setAuthData}
+                  />
+                )}
+              />
+            </div>
             <Route
               path="/patientRegistration"
               render={() => <PatientRegistration />}
@@ -56,21 +68,17 @@ function App() {
               path="/nurseRegisteration"
               render={() => <NurseRegistration />}
             />
-            <Route
-              path="/login"
-              render={() => (
-                <Login
-                  isAuthenticated={isAuthenticated}
-                  setIsAuthenticated={setIsAuthenticated}
-                  setAuthData={setAuthData}
-                />
-              )}
-            />
-
             <Route path="/dailyReportForm" render={() => <DailyReportForm />} />
-            {/* </Switch> */}
+        <Route
+          path="/emergencyAlertForm"
+          render={() => <EmergencyAlertForm />}
+        />
           </div>
+          
         </div>
+
+        
+        {/* </Switch> */}
       </div>
     </Router>
   );

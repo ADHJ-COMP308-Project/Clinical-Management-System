@@ -59,7 +59,7 @@ function NavBarMenu(props) {
                 <div>
                   <Nav>
                     <Nav.Link>{user.username}</Nav.Link>
-                    <Button variant="outline-dark" onClick={deleteCookie}>Log Out</Button>
+                    <Button variant="outline-primary" onClick={deleteCookie}>Log Out</Button>
                   </Nav>
                 </div>
               ) : (

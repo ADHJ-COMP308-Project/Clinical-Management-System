@@ -57,7 +57,7 @@ function DailyReportForm(props) {
   };
 
   return (
-    <div>
+    <div className="container">
       <div>
         <div>
           <h1>Daily Report Form</h1>

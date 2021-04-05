@@ -11,7 +11,7 @@ import Main from "./Main";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
-function Login({isAuthenticated,setIsAuthenticated,setAuthData}) {
+function Login({ isAuthenticated, setIsAuthenticated, setAuthData }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [role, setRole] = useState("");
@@ -56,7 +56,6 @@ function Login({isAuthenticated,setIsAuthenticated,setAuthData}) {
         console.log("in read cookie. user not found");
         setIsAuthenticated(false);
         setRole("");
-
       }
     } catch (err) {
       console.log(err);
@@ -153,84 +152,86 @@ function Login({isAuthenticated,setIsAuthenticated,setAuthData}) {
   };
 
   return (
-    <div className="main-wrapper">
-      {isAuthenticated ===false ? (
-        <div className="login-wrapper">
-          <h1>Login</h1>
-          <div>
-            {errorMessage.length !== 0 ? (
+    <div className="">
+      {isAuthenticated === false ? (
+            <div className="login-wrapper">
+              <h1>Login</h1>
               <div>
-                <Alert className="text-center" variant="danger">
-                  {errorMessage.map((item, index) => (
-                    <pre key={index}>{item}</pre>
-                  ))}
-                </Alert>
+                {errorMessage.length !== 0 ? (
+                  <div>
+                    <Alert className="text-center" variant="danger">
+                      {errorMessage.map((item, index) => (
+                        <pre key={index}>{item}</pre>
+                      ))}
+                    </Alert>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </div>
-            ) : (
-              <div></div>
-            )}
-          </div>
-          <Form.Row>
-            <Form.Group as={Col} md="12">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                name="username"
-                id="username"
-                placeholder="email"
-                type="email"
-                onChange={(e) => setLoginEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col} md="12">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    name="username"
+                    id="username"
+                    placeholder="email"
+                    type="email"
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Form.Row>
 
-          <Form.Row>
-            <Form.Group as={Col} md="12">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                name="password"
-                id="password"
-                placeholder="password"
-                type="password"
-                onChange={(e) => setLoginPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col} md="12">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    name="password"
+                    id="password"
+                    placeholder="password"
+                    type="password"
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Form.Row>
 
-          <Form.Row>
-            <Button className="btn btn-block" type="submit" onClick={login}>
-              Log in
-            </Button>
-          </Form.Row>
+              <Form.Row>
+                <Button className="btn btn-block" type="submit" onClick={login}>
+                  Log in
+                </Button>
+              </Form.Row>
 
-          <div className="mt-3">
-            <p className="text-center">
-              Not have an account?{" "}
-              <a href="/patientRegistration">Sign Up as a Patient</a>
-            </p>
-            <p className="text-center">
-              Not a patient?{" "}
-              <a href="/nurseRegisteration">Sign Up as a Nurse</a>
-            </p>
-          </div>
-        </div>
+              <div className="mt-3">
+                <p className="text-center">
+                  Not have an account?{" "}
+                  <a href="/patientRegistration">Sign Up as a Patient</a>
+                </p>
+                <p className="text-center">
+                  Not a patient?{" "}
+                  <a href="/nurseRegisteration">Sign Up as a Nurse</a>
+                </p>
+              </div>
+            </div>
+
       ) : (
-        <Main
-          username={username}
-          setUsername={setUsername}
-          user={user}
-          setUser={setUser}
-          userId={userId}
-          setUserId={setUserId}
-          role={role}
-          setRole={setRole}
-          setIsAuthenticated={setIsAuthenticated}
-        />
+        <div className="main-wrapper">
+          <Main
+            username={username}
+            setUsername={setUsername}
+            user={user}
+            setUser={setUser}
+            userId={userId}
+            setUserId={setUserId}
+            role={role}
+            setRole={setRole}
+            setIsAuthenticated={setIsAuthenticated}
+          />
+        </div>
       )}
     </div>
   );
-
 }
 
 export default withRouter(Login);
