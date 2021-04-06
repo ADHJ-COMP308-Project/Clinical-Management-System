@@ -44,23 +44,25 @@ function PatientRegistration(props) {
     axios
       .post(url, data)
       .then((res) => {
+
         errorMessage.forEach((element) => {
           errorMessage.pop(element);
         });
 
-        console.log("res.data = " + res.data);
+        console.log(res.data);
 
-        if (res.data.message !== undefined || res.data.message !== "") {
+        if(res.data.username ==data.username){
+          console.log(res);
+        props.history.push("/login");
+        }else{
+          console.log(res);
           var err = errorMessage;
           err.push(res.data);
           setErrorMessage(err);
           setIfError(true);
-          console.log("errorMessage: " + errorMessage);
+          console.log(errorMessage);
           return false;
         }
-
-        console.log(res);
-        props.history.push("/login");
       })
       .catch((err) => console.log("Error: " + err));
   };

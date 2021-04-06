@@ -36,6 +36,7 @@ function ShowEmergencyAlert(props) {
                 <h1>{alert.alertMessage}</h1>
                 <p>{alert.patient}</p>
             </Jumbotron>
+            
         </div>
     </div>
   );
