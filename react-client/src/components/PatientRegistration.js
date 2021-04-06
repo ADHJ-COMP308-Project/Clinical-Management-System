@@ -49,13 +49,13 @@ function PatientRegistration(props) {
         });
 
         console.log("res.data = " + res.data);
-        
-        if(res.data.message!==undefined||res.data.message!==""){
+
+        if (res.data.message !== undefined || res.data.message !== "") {
           var err = errorMessage;
           err.push(res.data);
           setErrorMessage(err);
           setIfError(true);
-          console.log("errorMessage: "+errorMessage);
+          console.log("errorMessage: " + errorMessage);
           return false;
         }
 
@@ -78,110 +78,98 @@ function PatientRegistration(props) {
   };
 
   return (
-    <div >
-      <h1>Patient Registration</h1>
-      <div>
-        {errorMessage.length !== 0 ? (
+    <div className="outer-wrapper">
+      <div className="auth-wrapper">
+        <div className="auth-inner">
           <div>
-            <Alert className="text-center" variant="danger">
-              {errorMessage.map((item, index) => (
-                <pre key={index}>{item}</pre>
-              ))}
-            </Alert>
-          </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
-      <Form onSubmit={register}>
-        <Form.Row>
-          <Form.Group as={Col} md="6">
-            <Form.Label>Firstname</Form.Label>
-            <Form.Control
-              name="firstName"
-              id="firstName"
-              placeholder="firstName"
-              type="text"
-              onChange={(e) => setRegisterFirstName(e.target.value)}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} md="6">
-            <Form.Label>Lastname</Form.Label>
-            <Form.Control
-              name="lastName"
-              id="lastName"
-              placeholder="lastName"
-              type="text"
-              onChange={(e) => setRegisterLastName(e.target.value)}
-              required
-            />
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col} md="12">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              name="username"
-              id="username"
-              placeholder="email"
-              type="email"
-              onChange={(e) => setRegisterUsername(e.target.value)}
-              required
-            />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Form.Group as={Col} md="6">
-            <Form.Label>Address</Form.Label>
-            {/* <Form.Control id="autocomplete"
-              name="address"
-              id="address"
-              placeholder="address"
-              type="text"
-              onChange={(e) => setRegisterAddress(e.target.value)}
-              required
-            /> */}
-
-            <PlacesAutocomplete
-              value={registerAddress}
-              onChange={handleChange}
-              onSelect={handleSelect}
-            >
-              {({
-                getInputProps,
-                suggestions,
-                getSuggestionItemProps,
-                loading,
-              }) => (
+            <h1>Patient Registration</h1>
+            <div>
+              {errorMessage.length !== 0 ? (
                 <div>
+                  <Alert className="text-center" variant="danger">
+                    {errorMessage.map((item, index) => (
+                      <pre key={index}>{item}</pre>
+                    ))}
+                  </Alert>
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
+            <Form onSubmit={register}>
+              <Form.Row>
+                <Form.Group as={Col} md="6">
+                  <Form.Label>Firstname</Form.Label>
                   <Form.Control
+                    name="firstName"
+                    id="firstName"
+                    placeholder="firstName"
+                    type="text"
+                    onChange={(e) => setRegisterFirstName(e.target.value)}
                     required
-                    {...getInputProps({
-                      placeholder: "Search Places ...",
-                      className: "location-search-input",
-                    })}
                   />
-                  <ListGroup
-                    variant="flush"
-                    as="ul"
-                    className="autocomplete-dropdown-container overflow-auto"
+                </Form.Group>
+                <Form.Group as={Col} md="6">
+                  <Form.Label>Lastname</Form.Label>
+                  <Form.Control
+                    name="lastName"
+                    id="lastName"
+                    placeholder="lastName"
+                    type="text"
+                    onChange={(e) => setRegisterLastName(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col} md="12">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    name="username"
+                    id="username"
+                    placeholder="email"
+                    type="email"
+                    onChange={(e) => setRegisterUsername(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col} md="6">
+                  <Form.Label>Address</Form.Label>
+                  {/* <Form.Control id="autocomplete"
+                name="address"
+                id="address"
+                placeholder="address"
+                type="text"
+                onChange={(e) => setRegisterAddress(e.target.value)}
+                required
+              /> */}
+                  <PlacesAutocomplete
+                    value={registerAddress}
+                    onChange={handleChange}
+                    onSelect={handleSelect}
                   >
-                    {loading && <div>Loading...</div>}
-                    {suggestions.map((suggestion,index) => {
-                      const className = suggestion.active
-                        ? "suggestion-item--active active"
-                        : "suggestion-item";
-                      return (
-                        <ListGroup.Item key={index}
-                          as="li"
-                          className="overflow-auto autocomplete-suggestions"
-                          {...getSuggestionItemProps(suggestion, {
-                            className,
+                    {({
+                      getInputProps,
+                      suggestions,
+                      getSuggestionItemProps,
+                      loading,
+                    }) => (
+                      <div>
+                        <Form.Control
+                          required
+                          {...getInputProps({
+                            placeholder: "Search Places ...",
+                            className: "location-search-input",
                           })}
+                        />
+                        <ListGroup
+                          variant="flush"
+                          as="ul"
+                          className="autocomplete-dropdown-container overflow-auto"
                         >
+<<<<<<< Updated upstream
                           <span>{suggestion.description}</span>
                         </ListGroup.Item>
                       );
@@ -231,6 +219,72 @@ function PatientRegistration(props) {
         <p class="text-center">
           Already have an account? <a href="/login">Log In</a>
         </p>
+=======
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map((suggestion, index) => {
+                            const className = suggestion.active
+                              ? "suggestion-item--active active"
+                              : "suggestion-item";
+                            return (
+                              <ListGroup.Item
+                                key={index}
+                                as="li"
+                                className="overflow-auto autocomplete-suggestions"
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </ListGroup.Item>
+                            );
+                          })}
+                        </ListGroup>
+                      </div>
+                    )}
+                  </PlacesAutocomplete>
+                  <div></div>
+                </Form.Group>
+                <Form.Group as={Col} md="6">
+                  <Form.Label>Phone Number </Form.Label>
+                  <Form.Control
+                    name="phoneNumber"
+                    id="phoneNumber"
+                    placeholder="4356758767"
+                    pattern="[2-9]{1}[0-9]{9}"
+                    title="Phone number should contain 10 digits without any special characters. Phone number should start with 2-9"
+                    type="text"
+                    onChange={(e) => setRegisterPhoneNumber(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group as={Col} md="12">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    name="password"
+                    id="password"
+                    type="password"
+                    placeholder="password"
+                    onChange={(e) => setRegisterPassword(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Button className="btn btn-block" type="submit">
+                  Register
+                </Button>
+              </Form.Row>
+            </Form>
+            <div className="mt-3">
+              <p className="text-center">
+                Already have an account? <a href="/login">Log In</a>
+              </p>
+            </div>
+          </div>
+        </div>
+>>>>>>> Stashed changes
       </div>
     </div>
   );

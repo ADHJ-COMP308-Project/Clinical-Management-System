@@ -124,6 +124,7 @@ function Login() {
   };
 
   return (
+<<<<<<< Updated upstream
     <div className="main-wrapper">
       {role === "" ? (
         <div className="login-wrapper">
@@ -188,6 +189,87 @@ function Login() {
                 Sign Up as a Nurse
               </a>
             </p>
+=======
+    <div className="container">
+      {isAuthenticated === false ? (
+        <div className="outer-wrapper">
+          <div className="auth-wrapper">
+            <div className="auth-inner">
+              <div className="login-wrapper">
+                <h1>Login</h1>
+                <div>
+                  {errorMessage.length !== 0 ? (
+                    <div>
+                      <Alert className="text-center" variant="danger">
+                        {errorMessage.map((item, index) => (
+                          <pre key={index}>{item}</pre>
+                        ))}
+                      </Alert>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+                <Form.Row>
+                  <Form.Group as={Col} md="12">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control
+                      name="username"
+                      id="username"
+                      placeholder="email"
+                      type="email"
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Form.Group as={Col} md="12">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      name="password"
+                      id="password"
+                      placeholder="password"
+                      type="password"
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      required
+                    />
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Button className="btn btn-block" type="submit" onClick={login}>
+                    Log in
+                  </Button>
+                </Form.Row>
+                <div className="mt-3">
+                  <p className="text-center">
+                    Not have an account?{" "}
+                    <a href="/patientRegistration">Sign Up as a Patient</a>
+                  </p>
+                  <p className="text-center">
+                    Not a patient?{" "}
+                    <a href="/nurseRegisteration">Sign Up as a Nurse</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="container main-wrapper">
+          <div className="main-inner">
+            <Main
+              username={username}
+              setUsername={setUsername}
+              user={user}
+              setUser={setUser}
+              userId={userId}
+              setUserId={setUserId}
+              role={role}
+              setRole={setRole}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+>>>>>>> Stashed changes
           </div>
         </div>
       ) : (
