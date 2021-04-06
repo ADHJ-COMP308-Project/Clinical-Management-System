@@ -145,94 +145,6 @@ function NurseRegistration(props) {
               required
             /> */}
 
-<<<<<<< Updated upstream
-            <PlacesAutocomplete
-              value={registerAddress}
-              onChange={handleChange}
-              onSelect={handleSelect}
-            >
-              {({
-                getInputProps,
-                suggestions,
-                getSuggestionItemProps,
-                loading,
-              }) => (
-                <div>
-                  <Form.Control
-                    required
-                    {...getInputProps({
-                      placeholder: "Search Places ...",
-                      className: "location-search-input",
-                    })}
-                  />
-                  <ListGroup
-                    variant="flush"
-                    as="ul"
-                    className="autocomplete-dropdown-container overflow-auto"
-                  >
-                    {loading && <div>Loading...</div>}
-                    {suggestions.map((suggestion) => {
-                      const className = suggestion.active
-                        ? "suggestion-item--active active"
-                        : "suggestion-item";
-                      return (
-                        <ListGroup.Item
-                          as="li"
-                          className="overflow-auto autocomplete-suggestions"
-                          {...getSuggestionItemProps(suggestion, {
-                            className,
-                          })}
-                        >
-                          <span>{suggestion.description}</span>
-                        </ListGroup.Item>
-                      );
-                    })}
-                  </ListGroup>
-                </div>
-              )}
-            </PlacesAutocomplete>
-
-            <div></div>
-          </Form.Group>
-          <Form.Group as={Col} md="6">
-            <Form.Label>Phone Number </Form.Label>
-            <Form.Control
-              name="phoneNumber"
-              id="phoneNumber"
-              placeholder="4356758767"
-              pattern="[2-9]{1}[0-9]{9}"
-              title="Phone number should contain 10 digits without any special characters. Phone number should start with 2-9"
-              type="text"
-              onChange={(e) => setRegisterPhoneNumber(e.target.value)}
-              required
-            />
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col} md="12">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              name="password"
-              id="password"
-              type="password"
-              placeholder="password"
-              onChange={(e) => setRegisterPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Row>
-          <Button className="btn btn-block" type="submit">
-            Register
-          </Button>
-        </Form.Row>
-      </Form>
-      <div className="mt-3">
-        <p class="text-center">
-          Already have an account? <a href="/login">Log In</a>
-        </p>
-=======
                 <PlacesAutocomplete
                   value={registerAddress}
                   onChange={handleChange}
@@ -321,7 +233,6 @@ function NurseRegistration(props) {
             </p>
           </div>
         </div>
->>>>>>> Stashed changes
       </div>
     </div>
     </div>

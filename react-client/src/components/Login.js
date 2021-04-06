@@ -11,12 +11,13 @@ import Main from "./Main";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 
-function Login() {
+function Login({ isAuthenticated, setIsAuthenticated, setAuthData }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [user, setUser] = useState({});
   const [errorMessage, setErrorMessage] = useState([]);
   const [ifError, setIfError] = useState(false);
 
@@ -29,12 +30,31 @@ function Login() {
   const readCookie = async () => {
     try {
       const response = await axios.get("http://localhost:3000/read_cookie");
+      console.log("in readCookie");
+      console.log("response" + response.data);
       if (response.data.loggedIn == true) {
-        setRole(response.data.user.role);
-        setUsername(response.data.user.username);
-        console.log("Username" + response.data.username);
+        console.log("response.log.loggedIn: " + response.data.loggedIn);
+        console.log("response.data.id: " + response.data.id);
+        console.log("response.data.username: " + response.data.username);
+        console.log("response.data.role: " + response.data.role);
+        console.log("response.data.user: " + response.data.user);
+
+        var responseRole = response.data.role;
+        var responseUsername = response.data.username;
+        var responseUserId = response.data.id;
+        var responseUser = response.data.user;
+
+        setUsername(responseUsername);
+        setUser(responseUser);
+        setUserId(responseUserId);
+        setIfError(false);
+        setAuthData(responseUser);
+        setIsAuthenticated(true);
+
+        setRole(responseRole);
       } else {
         console.log("in read cookie. user not found");
+        setIsAuthenticated(false);
         setRole("");
       }
     } catch (err) {
@@ -100,17 +120,25 @@ function Login() {
       .post(url, data)
       .then((response) => {
         console.log("response.data.message: " + response.data.status);
-        if (response.data.status == 401) { //if user not found or password is invalid returns message from rest server
+        if (response.data.status == 401) {
+          //if user not found or password is invalid returns message from rest server
           var err = errorMessage;
           err.push(response.data.message);
           setErrorMessage(err);
           setIfError(true);
           console.log("In response error: " + errorMessage);
         } else {
-          console.log("response.data.role: " + response.data.role);
-          if (response.data.role !== undefined) { //if logged in successfully
-            setRole(response.data.role);
+          console.log("response.data.user._id: " + response.data.user._id);
+          if (response.data.role !== undefined) {
+            //if logged in successfully
+
             setUsername(response.data.username);
+            setUser(response.data.user);
+            setUserId(response.data.user._id);
+            setAuthData(response.data.user);
+            setIsAuthenticated(true);
+            setRole(response.data.role);
+            setIfError(false);
           }
         }
       })
@@ -124,72 +152,6 @@ function Login() {
   };
 
   return (
-<<<<<<< Updated upstream
-    <div className="main-wrapper">
-      {role === "" ? (
-        <div className="login-wrapper">
-          <h1>Login</h1>
-          <div>
-            {errorMessage.length !== 0 ? (
-              <div>
-                <Alert className="text-center" variant="danger">
-                  {errorMessage.map((item, index) => (
-                    <pre key={index}>{item}</pre>
-                  ))}
-                </Alert>
-              </div>
-            ) : (
-              <div></div>
-            )}
-          </div>
-          <Form.Row>
-            <Form.Group as={Col} md="12">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                name="username"
-                id="username"
-                placeholder="email"
-                type="email"
-                onChange={(e) => setLoginEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Form.Row>
-
-          <Form.Row>
-            <Form.Group as={Col} md="12">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                name="password"
-                id="password"
-                placeholder="password"
-                type="password"
-                onChange={(e) => setLoginPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
-          </Form.Row>
-
-          <Form.Row>
-            <Button className="btn btn-block" type="submit" onClick={login}>
-              Log in
-            </Button>
-          </Form.Row>
-
-          <div className="mt-3">
-            <p class="text-center">
-              Not have an account?{" "}
-              <a href="/patientRegistration">
-                Sign Up as a Patient
-              </a>
-            </p>
-            <p class="text-center">
-              Not a patient?{" "}
-              <a  href="/nurseRegisteration">
-                Sign Up as a Nurse
-              </a>
-            </p>
-=======
     <div className="container">
       {isAuthenticated === false ? (
         <div className="outer-wrapper">
@@ -269,16 +231,8 @@ function Login() {
               setRole={setRole}
               setIsAuthenticated={setIsAuthenticated}
             />
->>>>>>> Stashed changes
           </div>
         </div>
-      ) : (
-        <Main
-          role={role}
-          setRole={setRole}
-          username={username}
-          setUsername={setUsername}
-        />
       )}
     </div>
   );

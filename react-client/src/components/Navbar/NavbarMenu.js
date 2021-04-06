@@ -35,10 +35,10 @@ function NavBarMenu(props) {
 
   return (
     <div>
-      <Navbar collapseOnSelect bg="light" expand="lg" className="fixed-top navbar-light">
+      <Navbar collapseOnSelect bg="light" expand="lg" className="fixed-top">
         <div className="container">
           <Nav.Link
-            className="navbar-brand d-inline-block "
+            className="navbar-brand d-inline-block"
             to={"/login"}
           >
             Final Project
@@ -49,7 +49,6 @@ function NavBarMenu(props) {
               {/* <Nav.Link className="nav-link" href="/patientRegistration">
                 Patient Sign up
               </Nav.Link>
-
               <Nav.Link className="nav-link" href="/nurseRegisteration">
                 Nurse Sign up
               </Nav.Link> */}

@@ -94,7 +94,7 @@ exports.read = function (req, res) {
       if (err) {
         return next(err);
       }
-      resres.status(200).json(emergencyAlert);
+      res.status(200).json(emergencyAlert);
     }
   );
 };

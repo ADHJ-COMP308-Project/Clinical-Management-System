@@ -21,15 +21,11 @@ module.exports = function () {
   // Load the 'User' model
   require("../app/models/user.server.model");
   // Load the 'DailyInformation' model
-<<<<<<< Updated upstream
-  //require("../app/models/dailyInfo.server.model");
-=======
   require("../app/models/dailyReport.server.model");
   //Load the 'EmergencyAlert' model
   require("../app/models/emergencyAlert.server.model");
   //Load the 'DailyTip' model
   require("../app/models/dailyTip.server.model");
->>>>>>> Stashed changes
   // Return the Mongoose connection instance
   return db;
 };
