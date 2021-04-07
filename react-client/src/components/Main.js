@@ -27,6 +27,16 @@ function Main(props) {
     });
   };
 
+  const showAlert = (alertId) => {
+    console.log(props);
+    props.history.push({
+      pathname: '/showEmergencyAlert/'+alertId,
+      state: {
+        alertId: alertId
+      }
+    });
+  };
+
   return (
     <div className="container">
       <h1>
@@ -49,6 +59,7 @@ function Main(props) {
             user={user}
             username={username}
             userId={userId}
+            showAlert ={showAlert}
             role={role}
           />
         </div>

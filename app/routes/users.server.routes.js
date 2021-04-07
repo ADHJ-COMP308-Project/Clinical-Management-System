@@ -10,6 +10,8 @@ module.exports = function (app) {
     //handle a post request made to root path
     app.post('/', users.signup);
     //
+
+    app.get("/patients",users.patientList);
     // Set up the 'users' parameterized routes 
 	app.route('/users/:userId')
     .get(users.read)

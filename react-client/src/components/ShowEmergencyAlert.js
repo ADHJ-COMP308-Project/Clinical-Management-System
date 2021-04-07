@@ -6,10 +6,11 @@ import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
 
 function ShowEmergencyAlert(props) {
-    console.log(props);
-  const alertId = props.history.location.alertId;
+  console.log(props);
+  const alertId = props.match.params.id;
   const apiUrl = "http://localhost:3000/api/emergencyAlerts/" + alertId;
   const [alert, setAlert] = useState({});
+  const [showLoading, setShowLoading] = useState(true);
 
   const getAlert = async () => {
     try {
@@ -18,28 +19,61 @@ function ShowEmergencyAlert(props) {
         console.log("some error");
       } else {
         console.log(response.data);
-        setAlert(response.data)
+        setAlert(response.data);
+        setShowLoading(false);
       }
     } catch (err) {
-        console.log('error: ' + err);
+      console.log("error: " + err);
     }
   };
 
+  const deleteAlert = async () => {
+    try {
+      const response = await axios.delete(apiUrl);
+      if (!response) {
+        console.log("some error");
+      } else {
+        console.log(response.data);
+        setShowLoading(false);
+        props.history.push("/login");
+      }
+    } catch (err) {}
+  };
+
   useEffect(() => {
-      getAlert();
+    getAlert();
   }, []);
 
   return (
-    <div>
-        <div>
-            <Jumbotron>
+    <div className="container">
+      <div className="flex-container">
+        <div className="flex-box">
+          {showLoading ? (
+            <Spinner animation="border" role="statue">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          ) : (
+            <div>
+              <Jumbotron>
                 <h1>{alert.alertMessage}</h1>
-                <p>{alert.patient}</p>
-            </Jumbotron>
-            
+                <p>{alert.patient.username}</p>
+                <p>Please call the patient at: {alert.patient.phoneNumber}</p>
+              </Jumbotron>
+              <Button
+                type="button"
+                variant="danger"
+                onClick={() => {
+                  deleteAlert(alert._id);
+                }}
+              >
+                Delete
+              </Button>
+            </div>
+          )}
         </div>
+      </div>
     </div>
   );
 }
 
-export default ShowEmergencyAlert;
+export default withRouter(ShowEmergencyAlert);

@@ -54,6 +54,7 @@ exports.list = function (req, res) {
   EmergencyAlert.find()
     .sort("-createdAt")
     .sort("-patient")
+    .populate('patient')
     .exec((err, alerts) => {
       if (err) {
         return res.status(400).send({
@@ -66,7 +67,8 @@ exports.list = function (req, res) {
 };
 
 exports.infoByID = function (req, res, next, id) {
-  EmergencyAlert.findById(id).exec((err, emergencyAlert) => {
+  console.log("in infoById: "+ id);
+  EmergencyAlert.findOne({_id: id}).populate('patient').exec((err, emergencyAlert) => {
     if (err) return next(err);
     if (!emergencyAlert)
       return next(new Error("Failed to load emergencyAlert " + id));
@@ -96,7 +98,7 @@ exports.read = function (req, res) {
       }
       res.status(200).json(emergencyAlert);
     }
-  );
+  ).populate('patient');
 };
 
 exports.update = function (req, res) {
@@ -115,9 +117,11 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
+  
+  console.log("req.alertId: " +req.alertId)
   EmergencyAlert.findOneAndRemove(
     { _id: req.alertId },
-    req.body,{useFindAndModify: false},
+    req.body,
     function (err, emergencyAlert) {
       if (err) return next(err);
       console.log("deleted successfully: "+ emergencyAlert);

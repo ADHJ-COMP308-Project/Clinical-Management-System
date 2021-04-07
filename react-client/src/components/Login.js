@@ -3,13 +3,10 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
 import Main from "./Main";
-import ListGroup from "react-bootstrap/ListGroup";
-import ListGroupItem from "react-bootstrap/ListGroupItem";
 
 function Login({ isAuthenticated, setIsAuthenticated, setAuthData }) {
   const [loginEmail, setLoginEmail] = useState("");
@@ -31,14 +28,8 @@ function Login({ isAuthenticated, setIsAuthenticated, setAuthData }) {
     try {
       const response = await axios.get("http://localhost:3000/read_cookie");
       console.log("in readCookie");
-      console.log("response" + response.data);
-      if (response.data.loggedIn == true) {
-        console.log("response.log.loggedIn: " + response.data.loggedIn);
-        console.log("response.data.id: " + response.data.id);
-        console.log("response.data.username: " + response.data.username);
-        console.log("response.data.role: " + response.data.role);
-        console.log("response.data.user: " + response.data.user);
-
+      console.log(response.data);
+      if (response.data.loggedIn === true) {
         var responseRole = response.data.role;
         var responseUsername = response.data.username;
         var responseUserId = response.data.id;
@@ -49,17 +40,20 @@ function Login({ isAuthenticated, setIsAuthenticated, setAuthData }) {
         setUserId(responseUserId);
         setIfError(false);
         setAuthData(responseUser);
+        setRole(responseRole);
         setIsAuthenticated(true);
 
-        setRole(responseRole);
+        // setRole(responseRole);
       } else {
         console.log("in read cookie. user not found");
-        setIsAuthenticated(false);
         setRole("");
+        setIsAuthenticated(false);
+        
       }
     } catch (err) {
       console.log(err);
       setRole("");
+      setIsAuthenticated(false);
     }
   };
 
@@ -136,8 +130,9 @@ function Login({ isAuthenticated, setIsAuthenticated, setAuthData }) {
             setUser(response.data.user);
             setUserId(response.data.user._id);
             setAuthData(response.data.user);
-            setIsAuthenticated(true);
+            // setIsAuthenticated(true);
             setRole(response.data.role);
+            setIsAuthenticated(true);
             setIfError(false);
           }
         }

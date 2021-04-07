@@ -64,6 +64,16 @@ exports.list = function (req, res, next) {
     }
   });
 };
+
+exports.patientList = function(req,res,next){
+  User.find({role: "patient"}).exec((err,patients)=>{
+    if(err){
+      return next(getErrorMessage(err));
+    }else{
+      res.json(patients);
+    }
+  });
+}
 //
 //'read' controller method to display a user
 exports.read = function (req, res) {

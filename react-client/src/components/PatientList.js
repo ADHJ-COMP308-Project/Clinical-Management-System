@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { MDBContainer } from "mdbreact";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 
-function EmergencyAlertList(props) {
+function PatientList(props) {
   console.log(props);
-  const {showAlert} = props;
-  const [alertList, setAlertList] = useState([]);
+  
+  const [patientList, setPatientList] = useState([]);
   const [ifError, setIfError] = useState(false);
   
 
-  const getEmergencyAlerts = () => {
-    const apiUrl = "http://localhost:3000/api/emergencyAlerts";
+  const getPatientList = () => {
+    const apiUrl = "http://localhost:3000/patients";
 
     axios
       .get(apiUrl)
@@ -25,7 +24,7 @@ function EmergencyAlertList(props) {
           console.log("Couldnt get the response");
         } else {
           var list = response.data;
-          setAlertList(list);
+          setPatientList(list);
           setIfError(false);
         }
       })
@@ -35,27 +34,24 @@ function EmergencyAlertList(props) {
   
 
   useEffect(() => {
-    getEmergencyAlerts();
+    getPatientList();
   }, []);
 
   return (
-    <div>
-      <h4>Emergency Alerts List</h4>
+    <div class="bg-white">
+      <h2>Patient List</h2>
       <hr className="hr-primary" />
-      {alertList.length !== 0 || alertList !== [] ? (
+      {patientList.length !== 0 ? (
         <div>
-          <ListGroup
-            className="scrollbar scrollbar-primary  mt-3 mx-auto"
-            style={{ maxHeight: "300px" }}
-          >
-            {alertList.map((item, idx) => (
-              <ListGroup.Item
+          <ListGroup className="scrollbar scrollbar-primary  mt-3 mx-auto">
+            {patientList.map((item, idx) => (
+              <ListGroup.Item className="  mb-auto bg-white"
                 key={idx}
-                onClick={() => {
-                  showAlert(item._id);
-                }}
+                // onClick={() => {
+                //   //showReport(item._id)
+                // }}
               >
-                {item.alertMessage} {item.patient.firstName}
+                {item.fullName}
               </ListGroup.Item>
             ))}
           </ListGroup>
@@ -67,4 +63,4 @@ function EmergencyAlertList(props) {
   );
 }
 
-export default EmergencyAlertList;
+export default PatientList;

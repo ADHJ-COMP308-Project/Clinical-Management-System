@@ -34,7 +34,7 @@ body, html, .App, #root, .auth-wrapper {
 }
 
 .outer-wrapper{
-  margin-top:9rem;
+  margin-top:10rem;
 }
 
 .auth-wrapper {
@@ -71,17 +71,41 @@ body, html, .App, #root, .auth-wrapper {
 }
 
 .main-wrapper {
-  width: 100%;
+  min-height: 100vh; 
+  display: flex;           /* establish flex container */
+  justify-content: center; /* center items vertically, in this case */
+  align-items: center;  
+  /* width: 100%;
   height: auto;
-  margin-top: 3.5rem;
-  margin-bottom:10rem ;
+  padding-top: 3.5rem; */
+  
 }
 
 .main-inner {
   margin:0;
-  padding: 20px 30px 50px 30px;
+  padding: 8vh 30px 8vh 30px;
   background: #ffffff;
-  transition: all .3s;
+  border-radius: 15px;
+  transition: all .3s; 
+  /* margin:0;
+  padding: 20px 30px 20px 30px;
+  background: #ffffff;
+  transition: all .3s; */
+}
+
+.flex-container{
+  min-height: 100vh; 
+  display: flex;           /* establish flex container */
+  justify-content: center; /* center items vertically, in this case */
+  align-items: center;     /* center items horizontally, in this case */
+}
+
+.flex-box{
+  margin:0;
+  padding: 20px 30px 20px 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  transition: all .3s; 
 }
 
 .hr-primary{
