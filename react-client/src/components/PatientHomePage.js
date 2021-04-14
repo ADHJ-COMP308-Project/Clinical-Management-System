@@ -7,6 +7,8 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 import EmergencyAlertForm from "./Forms/EmergencyAlertForm";
+import DailyReportForm from "./Forms/DailyReportForm";
+
 
 
 function PatientHomePage(props) {
@@ -51,9 +53,7 @@ function PatientHomePage(props) {
           setReport(response.data);
           setDailyReportRequired(false);
           var createdAt = new Date(response.data.createdAt);
-          console.log("Converted createdAt: " + createdAt);
           var dateNow = new Date();
-          console.log("date Now: " + dateNow);
           var timeDifference = Math.abs(dateNow - createdAt);
           console.log("dateDifference: " + timeDifference);
           var dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));

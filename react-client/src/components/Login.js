@@ -213,7 +213,7 @@ function Login({ isAuthenticated, setIsAuthenticated, setAuthData }) {
           </div>
         </div>
       ) : (
-        <div className="container main-wrapper">
+        <div className=" main-wrapper">
           <div className="main-inner">
             <Main
               username={username}

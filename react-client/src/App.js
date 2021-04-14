@@ -31,7 +31,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      
         <Route
           render={(props) => (
             <NavBarMenu
@@ -42,6 +42,7 @@ function App() {
             />
           )}
         />
+        <div className="App">
         <Route exact path="/">
           <Redirect to="/login" />
         </Route>
