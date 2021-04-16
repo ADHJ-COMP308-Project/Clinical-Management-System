@@ -81,8 +81,8 @@ function NavBarMenu(props) {
                     <NavDropdown.Item href="/showTips">
                       Motivational Tips
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">
-                      Another action
+                    <NavDropdown.Item href="/strokeai">
+                      Stroke Prediction
                     </NavDropdown.Item>
                   </NavDropdown>
                 </div>

@@ -9,12 +9,16 @@ import { withRouter } from "react-router-dom";
 function ShowLatestTip(props) {
   const [showLoading, setShowLoading] = useState(true);
   const [tip, setTip] = useState({});
+  const [error, setError] = useState("");
 
   const apiUrl = "http://localhost:3000/api/dailyTips/latest";
   const getLatestTip = () => {
     axios
       .get(apiUrl)
       .then((response) => {
+        if (response.data === undefined) {
+          setError("No tips added!");
+        }
         setTip(response.data);
         setShowLoading(false);
       })
@@ -24,7 +28,7 @@ function ShowLatestTip(props) {
   };
 
   useEffect(() => {
-      getLatestTip();
+    getLatestTip();
   }, []);
 
   return (
@@ -37,18 +41,30 @@ function ShowLatestTip(props) {
         </div>
       ) : (
         <div>
-          <div>
-            <h1>Today's Tip</h1>
-          </div>
-          <div>
-              <Card>
+          {error.length === 0 ? (
+            <div>
+              <div className="alert-danger">
+                <h1 className=""alert>No Tips</h1>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div>
+                <h1>Today's Tip</h1>
+              </div>
+              <div>
+                <Card>
                   <Card.Header as="h3">{tip.subject}</Card.Header>
                   <Card.Body>
-                      <Card.Title>By: {tip.author.firstName} {tip.author.lastName}</Card.Title>
-                      <Card.Text>{tip.tipMessage}</Card.Text>
+                    <Card.Title>
+                      By: {tip.author.firstName} {tip.author.lastName}
+                    </Card.Title>
+                    <Card.Text>{tip.tipMessage}</Card.Text>
                   </Card.Body>
-              </Card>
-          </div>
+                </Card>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
