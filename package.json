@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "setup": "npm update && npm install"
   },
   "proxy": "http://localhost:3000/",
   "keywords": [],

@@ -10,9 +10,10 @@ import Alert from "react-bootstrap/Alert";
 
 function EmergencyAlertList(props) {
   console.log(props);
-  const { showAlert } = props;
+  const {showAlert} = props;
   const [alertList, setAlertList] = useState([]);
   const [ifError, setIfError] = useState(false);
+  
 
   const getEmergencyAlerts = () => {
     const apiUrl = "http://localhost:3000/api/emergencyAlerts";
@@ -31,6 +32,8 @@ function EmergencyAlertList(props) {
       .catch((err) => console.log("Some error: " + err));
   };
 
+  
+
   useEffect(() => {
     getEmergencyAlerts();
   }, []);
@@ -47,14 +50,12 @@ function EmergencyAlertList(props) {
           >
             {alertList.map((item, idx) => (
               <ListGroup.Item
-                className="text-md-left"
                 key={idx}
                 onClick={() => {
                   showAlert(item._id);
                 }}
               >
-                {item.createdAt.toString().replace('T',' ').replace('Z','')}{"  "}
-                {item.alertMessage}
+                {item.alertMessage} {item.patient.firstName}
               </ListGroup.Item>
             ))}
           </ListGroup>
