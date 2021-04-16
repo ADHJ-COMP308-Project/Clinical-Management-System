@@ -23,6 +23,8 @@ import DailyReportForm from "./components/Forms/DailyReportForm";
 import EmergencyAlertForm from "./components/Forms/EmergencyAlertForm";
 import ShowEmergencyAlert from "./components/ShowEmergencyAlert";
 import PatientList from "./components/PatientList";
+import StrokeAI from "./components/StrokeAI";
+import AIResult from "./components/AIResults";
 // import Main from "./components/Main";
 
 function App() {
@@ -78,6 +80,8 @@ function App() {
               render={() => <ShowEmergencyAlert />}
             />
               <Route path="/patientList" render={() => <PatientList />} />
+              <Route render={() => <StrokeAI />} path="/StrokeAI" />
+              <Route render={() => <AIResult />} path="/AIResult" />
           </div>
         </div>
       </div>
