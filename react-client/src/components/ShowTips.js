@@ -4,6 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
+import Card from "react-bootstrap/Card";
 
 function ShowTips(props) {
   const [tips, setTips] = useState([]);
@@ -28,35 +29,47 @@ function ShowTips(props) {
   }, []);
 
   return (
-    <div className="bg-white">
-      {showLoading ? (
-        <div className="text-center">
-          <Spinner className="mt-5" animation="border" role="status">
-            <span className="sr-only">Waiting for results...</span>
-          </Spinner>
-        </div>
-      ) : (
-        <div>
-          {console.log(tips)}
-
-          {tips.map((item, index) => {
-            return (
-              <Jumbotron key={index}>
-                <h2>{item.subject}</h2>
-                <p>
-                  {item.createdAt
-                    .toString()
-                    .substring(0, 19)
-                    .replace("T", " ")
-                    .replace("Z", "")}
-                </p>
-                <p>{item.tipMessage}</p>
-                <p>{item.author.fullName}</p>
-              </Jumbotron>
-            );
-          })}
-        </div>
-      )}
+    <div className="main-wrapper">
+      <div className="tips-inner">
+        {showLoading ? (
+          <div className="text-center">
+            <Spinner className="mt-5" animation="border" role="status">
+              <span className="sr-only">Waiting for results...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <div>
+            {tips.length<1?(<div>
+              <div className="alert alert-danger">
+                No tips
+              </div>
+            </div>):(<div>
+              {tips.map((item, index) => {
+              return (
+                <div className="text-left">
+                  <Card className="shadow mt-2 bg-white rounded ">
+                    <Card.Header key={index} className="font-weight-bold  bg-info text-white">{item.subject}</Card.Header>
+                    <Card.Body>
+                      <Card.Title className="ml-3">
+                        {item.author.fullName}{" "}
+                        {item.createdAt
+                          .toString()
+                          .substring(0, 19)
+                          .replace("T", " ")
+                          .replace("Z", "")}
+                      </Card.Title>
+                      <hr style={{backgroundColor:'rgba(66,133,244,.8)',height:'1px'}}/>
+                      <Card.Text className="ml-3">{item.tipMessage}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              );
+            })}
+            </div>)}
+            
+          </div>
+        )}
+      </div>
     </div>
   );
 }

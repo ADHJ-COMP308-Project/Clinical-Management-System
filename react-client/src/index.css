@@ -94,6 +94,14 @@ body, html, .App, #root, .auth-wrapper {
   transition: all .3s; */
 }
 
+.tips-inner{
+  margin:0;
+  min-width: 100vh;
+  padding: 2vh 30px 2vh 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  transition: all .3s; 
+}
 .flex-container{
   min-height: 100vh; 
   display: flex;           /* establish flex container */
