@@ -38,10 +38,11 @@ function Main(props) {
   };
 
   return (
-    <div className="container">
-      <h1>
+    <div className="">
+      <h3>
         Hi, {role} {username}
-      </h1>
+      </h3>
+      <hr className="hr-primary" />
       {role == "patient" ? (
         //
         <div>

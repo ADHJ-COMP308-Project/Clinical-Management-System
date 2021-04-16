@@ -38,7 +38,7 @@ function PatientList(props) {
   }, []);
 
   return (
-    <div class="bg-white">
+    <div className="bg-white">
       <h2>Patient List</h2>
       <hr className="hr-primary" />
       {patientList.length !== 0 ? (
