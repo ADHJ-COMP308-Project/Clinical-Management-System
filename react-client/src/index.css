@@ -71,7 +71,7 @@ body, html, .App, #root, .auth-wrapper {
 }
 
 .main-wrapper {
-  min-height: 100vh;
+  min-height: 100vh; 
   display: flex;           /* establish flex container */
   justify-content: center; /* center items vertically, in this case */
   align-items: center;  
@@ -83,7 +83,6 @@ body, html, .App, #root, .auth-wrapper {
 
 .main-inner {
   margin:0;
-  min-width: 100vh;
   padding: 8vh 30px 8vh 30px;
   background: #ffffff;
   border-radius: 15px;

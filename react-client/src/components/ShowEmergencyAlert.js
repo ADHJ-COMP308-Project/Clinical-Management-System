@@ -12,21 +12,19 @@ function ShowEmergencyAlert(props) {
   const [alert, setAlert] = useState({});
   const [showLoading, setShowLoading] = useState(true);
 
-  const getAlert = () => {
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        if (!response) {
-          console.log("some error");
-        } else {
-          console.log(response.data);
-          setAlert(response.data);
-          setShowLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log("error: " + err);
-      });
+  const getAlert = async () => {
+    try {
+      const response = await axios.get(apiUrl);
+      if (!response) {
+        console.log("some error");
+      } else {
+        console.log(response.data);
+        setAlert(response.data);
+        setShowLoading(false);
+      }
+    } catch (err) {
+      console.log("error: " + err);
+    }
   };
 
   const deleteAlert = async () => {

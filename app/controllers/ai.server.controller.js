@@ -2,7 +2,7 @@ exports.train = function (req, res) {
     const tf = require("@tensorflow/tfjs");
     require("@tensorflow/tfjs-node");
     //load data training and testing data
-    const data = require("../../patients.json");
+    const data = require("../../stroke.json");
     const dataTesting = [
       {
         weight: req.body.weight,
