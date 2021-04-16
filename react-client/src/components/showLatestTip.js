@@ -16,8 +16,11 @@ function ShowLatestTip(props) {
     axios
       .get(apiUrl)
       .then((response) => {
-        if (response.data === undefined) {
+        console.log(response.data);
+        if (response.data.message === "No records found") {
+          console.log("No response data");
           setError("No tips added!");
+          setShowLoading(false);
         }
         setTip(response.data);
         setShowLoading(false);
@@ -41,7 +44,7 @@ function ShowLatestTip(props) {
         </div>
       ) : (
         <div>
-          {error.length === 0 ? (
+          {error.length !== 0 ? (
             <div>
               <div className="alert-danger">
                 <h1 className=""alert>No Tips</h1>
