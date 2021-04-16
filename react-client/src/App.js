@@ -23,8 +23,7 @@ import DailyReportForm from "./components/Forms/DailyReportForm";
 import EmergencyAlertForm from "./components/Forms/EmergencyAlertForm";
 import ShowEmergencyAlert from "./components/ShowEmergencyAlert";
 import PatientList from "./components/PatientList";
-import StrokeAI from "./components/StrokeAI";
-import AIResult from "./components/AIResults";
+import ShowTips from "./components/ShowTips";
 // import Main from "./components/Main";
 
 function App() {
@@ -33,17 +32,17 @@ function App() {
 
   return (
     <Router>
+      <Route
+        render={(props) => (
+          <NavBarMenu
+            isAuthenticated={isAuthenticated}
+            setIsAuthenticated={setIsAuthenticated}
+            user={authData}
+            setUser={setAuthData}
+          />
+        )}
+      />
       <div className="App">
-        <Route
-          render={(props) => (
-            <NavBarMenu
-              isAuthenticated={isAuthenticated}
-              setIsAuthenticated={setIsAuthenticated}
-              user={authData}
-              setUser={setAuthData}
-            />
-          )}
-        />
         <Route exact path="/">
           <Redirect to="/login" />
         </Route>
@@ -68,7 +67,10 @@ function App() {
           render={() => <NurseRegistration />}
         />
 
-        <div className="container" style={{paddingTop:'8vh',paddingBottom:'8vh'}}>
+        <div
+          className="container"
+          style={{ paddingTop: "8vh", paddingBottom: "8vh" }}
+        >
           <div className="">
             <Route path="/dailyReportForm" render={() => <DailyReportForm />} />
             <Route
@@ -79,9 +81,8 @@ function App() {
               path="/showEmergencyAlert/:id"
               render={() => <ShowEmergencyAlert />}
             />
-              <Route path="/patientList" render={() => <PatientList />} />
-              <Route render={() => <StrokeAI />} path="/StrokeAI" />
-              <Route render={() => <AIResult />} path="/AIResult" />
+            <Route path="/patientList" render={() => <PatientList />} />
+            <Route path="/showTips" render={() => <ShowTips />} />
           </div>
         </div>
       </div>
