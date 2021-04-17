@@ -56,9 +56,10 @@ function StrokeAI(props) {
 
   if (Status === "No") {
     return (
-      <div className="main-wrapper">
-        <div className="main-inner">
-
+      <div className="outer-wrapper">
+        <div className="auth-wrapper">
+          <div className="auth-inner">
+            <div className="login-wrapper">
               <div className="container" align="center">
                 <h2>Stroke Prediction - AI</h2>
               </div>
@@ -72,64 +73,73 @@ function StrokeAI(props) {
                 </div>
                 <Form>
                   <Form.Group>
-                    <Form.Label> weight</Form.Label>
+                    <Form.Label>Weight</Form.Label>
                     <Form.Control
                       type="number"
                       name="weight"
                       id="weight"
                       min="0"
                       step="0.01"
-                      placeholder="weight sepal_length"
+                      placeholder="Enter Weight"
                       value={testData.weight}
+                      required
                       onChange={onChange}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>age</Form.Label>
+                    <Form.Label>Age</Form.Label>
                     <Form.Control
                       type="number"
                       name="age"
                       id="age"
                       min="0"
                       step="1"
-                      placeholder="Enter age"
+                      placeholder="Enter Age"
                       value={testData.age}
+                      required
                       onChange={onChange}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>blood_fat</Form.Label>
+                    <Form.Label>Blood Fat</Form.Label>
                     <Form.Control
                       type="number"
                       name="blood_fat"
                       id="blood_fat"
                       min="0"
                       step="0.01"
-                      placeholder="Enter blood_fat"
+                      placeholder="Enter Blood Fat"
                       value={testData.blood_fat}
+                      required
                       onChange={onChange}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>body_fat</Form.Label>
+                    <Form.Label>Body Fat</Form.Label>
                     <Form.Control
                       type="number"
                       name="body_fat"
                       id="body_fat"
                       min="0"
                       step="0.01"
-                      placeholder="Enter body_fat"
+                      placeholder="Enter Body Fat"
                       value={testData.body_fat}
+                      required
                       onChange={onChange}
                     />
                   </Form.Group>
                 </Form>
-                <Button className="btn btn-primary btn-block" onClick={Training}>
+                <Button
+                  className="btn btn-primary btn-block"
+                  onClick={Training}
+                >
                   Test
                 </Button>
               </div>
             </div>
           </div>
+        </div>
+      </div>
     );
   } else {
     return (
@@ -140,7 +150,8 @@ function StrokeAI(props) {
               <div className="container" align="center">
                 <h1>Test is Done</h1>
                 <p className="lead">Click the button to see the result</p>
-                <Link className="btn-block"
+                <Link
+                  className="btn-block"
                   to={{
                     pathname: "/AIResult",
                     state: {

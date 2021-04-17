@@ -20,7 +20,7 @@ function Result(props) {
                   <div className="container" align="center">
                     <Jumbotron>
                       <h4>Risk: High chance of stroke</h4>
-                      <p>Chances of a stroke: {newData.ResultofTest[0]}</p>
+                      <p>Chances of a stroke: {(newData.ResultofTest[0] * 100).toString().substring(0, 4)}%</p>
                     </Jumbotron>
                   </div>
                 );
@@ -29,7 +29,7 @@ function Result(props) {
                   <div className="container" align="center">
                     <Jumbotron>
                       <h4>No Risk: You are healthy</h4>
-                      <p>Chances of a stroke: {newData.ResultofTest[0]}</p>
+                      <p>Chances of a stroke: {(newData.ResultofTest[0] * 100).toString().substring(0, 4)}%</p>
                     </Jumbotron>
                   </div>
                 );

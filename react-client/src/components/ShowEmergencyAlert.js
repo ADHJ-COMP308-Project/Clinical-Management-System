@@ -60,11 +60,12 @@ function ShowEmergencyAlert(props) {
               <Card className="text-left m-4">
                 <Card.Body>
                   <Card.Title className="m-3">
-                    {alert.createdAt
+                    Posted: {alert.createdAt
                       .toString()
+                      .substring(0, 19)
                       .replace("T", " ")
-                      .replace("Z", "")}{" "}
-                    Posted {alert.patient.fullName}
+                      .replace("Z", "")}{" "}<br />
+                    By: {alert.patient.fullName}
                   </Card.Title>
                   <hr
                     className="shadow"

@@ -100,7 +100,7 @@ function NurseReportForm(props) {
               <Modal.Header>
                 <div>
                   <Modal.Title>
-                    <h1>Daily Report Form</h1>
+                    <h1>Clinical Visit</h1>
                   </Modal.Title>
                 </div>
               </Modal.Header>

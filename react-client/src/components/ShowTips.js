@@ -72,12 +72,13 @@ function ShowTips(props) {
                             </Card.Header>
                             <Card.Body>
                               <Card.Text className="ml-3 text-capitalize">
-                                {item.author.fullName} {"posted "}
-                                {item.createdAt
-                                  .toString()
-                                  .substring(0, 19)
-                                  .replace("T", " ")
-                                  .replace("Z", "")}
+                              <i> <b>Posted: </b>
+                                  {item.createdAt
+                                    .toString()
+                                    .substring(0, 19)
+                                    .replace("T", " ")
+                                    .replace("Z", "")}
+                                </i> <i><b>By: </b>{item.author.fullName}</i>
                               </Card.Text>
                               <hr
                                 style={{

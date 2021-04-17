@@ -67,10 +67,10 @@ function PatientList(props) {
               <hr className="hr-primary" />
               {patientList.length !== 0 ? (
                 <div>
-                  <ListGroup className="scrollbar scrollbar-primary  mt-3 mx-auto">
+                  <ListGroup className="scrollbar scrollbar-primary hover responsive mt-3 mx-auto">
                     {patientList.map((item, idx) => (
                       <ListGroup.Item
-                        className="  mb-auto bg-white"
+                        className="mb-auto bg-white"
                         key={idx}
                         onClick={() => {
                           showReport(item._id);
