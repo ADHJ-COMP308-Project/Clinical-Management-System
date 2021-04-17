@@ -95,8 +95,10 @@ function NavBarMenu(props) {
                     <NavDropdown.Item href="/nursereports">
                       Nurse Reports
                     </NavDropdown.Item>
+                    <NavDropdown.Item href="/strokeai">
+                      Stroke Prediction
+                    </NavDropdown.Item>
                   </NavDropdown>
-
                 </div>
               )}
             </Nav>
