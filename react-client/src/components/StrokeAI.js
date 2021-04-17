@@ -56,10 +56,9 @@ function StrokeAI(props) {
 
   if (Status === "No") {
     return (
-      <div className="container">
-        <div className="outer-wrapper">
-          <div className="auth-wrapper">
-            <div className="auth-inner">
+      <div className="main-wrapper">
+        <div className="main-inner">
+
               <div className="container" align="center">
                 <h2>Stroke Prediction - AI</h2>
               </div>
@@ -131,8 +130,6 @@ function StrokeAI(props) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
     );
   } else {
     return (

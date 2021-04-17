@@ -7,6 +7,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import Table from "react-bootstrap/Table";
 
 function EmergencyAlertList(props) {
   console.log(props);
@@ -38,30 +39,56 @@ function EmergencyAlertList(props) {
   return (
     <div>
       <h4>Emergency Alerts List</h4>
-      <hr className="hr-primary" />
-      {alertList.length !== 0 || alertList !== [] ? (
-        <div>
-          <ListGroup
-            className="scrollbar scrollbar-primary  mt-3 mx-auto"
-            style={{ maxHeight: "300px" }}
-          >
-            {alertList.map((item, idx) => (
-              <ListGroup.Item
-                className="text-md-left"
-                key={idx}
-                onClick={() => {
-                  showAlert(item._id);
-                }}
-              >
-                {item.createdAt.toString().replace('T',' ').replace('Z','')}{"  "}
-                {item.alertMessage}
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </div>
-      ) : (
-        <div>No emergency alerts</div>
-      )}
+      <hr
+        className="shadow"
+        style={{
+          backgroundColor: "rgba(66,133,244,.8)",
+          height: "1px",
+        }}
+      />
+      <div className="m-3">
+        {alertList.length !== 0 || alertList !== [] ? (
+          <div>
+            <div
+              className="scrollbar scrollbar-primary  mt-3 mx-auto"
+              style={{ maxHeight: "300px" }}
+            >
+              <Table hover responsive>
+                <thead>
+                  <tr className="text-left">
+                    <th>Date-Time</th>
+                    <th>Patient Name</th>
+                    <th>Message</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {alertList.map((item, idx) => (
+                    <tr
+                      className="text-md-left"
+                      key={idx}
+                      onClick={() => {
+                        showAlert(item._id);
+                      }}
+                    >
+                      <td>
+                        {item.createdAt
+                          .toString()
+                          .replace("T", " ")
+                          .replace("Z", "")}
+                        {"  "}
+                      </td>
+                      <td>{item.patient.fullName}</td>
+                      <td>{item.alertMessage}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+          </div>
+        ) : (
+          <div>No emergency alerts</div>
+        )}
+      </div>
     </div>
   );
 }

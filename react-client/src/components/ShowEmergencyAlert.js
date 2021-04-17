@@ -4,6 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
+import Card from "react-bootstrap/esm/Card";
 
 function ShowEmergencyAlert(props) {
   console.log(props);
@@ -56,20 +57,38 @@ function ShowEmergencyAlert(props) {
             </Spinner>
           ) : (
             <div>
-              <Jumbotron>
-                <h1>{alert.alertMessage}</h1>
-                <p>{alert.patient.username}</p>
-                <p>Please call the patient at: {alert.patient.phoneNumber}</p>
-              </Jumbotron>
-              <Button
-                type="button"
-                variant="danger"
-                onClick={() => {
-                  deleteAlert(alert._id);
-                }}
-              >
-                Delete
-              </Button>
+              <Card className="text-left m-4">
+                <Card.Body>
+                  <Card.Title className="m-3">
+                    {alert.createdAt
+                      .toString()
+                      .replace("T", " ")
+                      .replace("Z", "")}{" "}
+                    Posted {alert.patient.fullName}
+                  </Card.Title>
+                  <hr
+                    className="shadow"
+                    style={{
+                      backgroundColor: "rgba(66,133,244,.8)",
+                      height: "1px",
+                    }}
+                  />
+                  <Card.Text className="m-3 alert alert-danger">{alert.alertMessage}</Card.Text>
+                  <Card.Text className="m-3 font-weight-bold">Please call the patient at: {alert.patient.phoneNumber}</Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <Button
+                    className="btn-block"
+                    type="button"
+                    variant="danger"
+                    onClick={() => {
+                      deleteAlert(alert._id);
+                    }}
+                  >
+                    Remove Alert
+                  </Button>
+                </Card.Footer>
+              </Card>
             </div>
           )}
         </div>
