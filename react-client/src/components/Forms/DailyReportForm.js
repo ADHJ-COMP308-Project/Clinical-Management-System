@@ -45,12 +45,15 @@ function DailyReportForm(props) {
     axios
       .post(apiUrl, data)
       .then((response) => {
-        console.log("result" + response);
-        if (response.data.message != "" || response.data.message != undefined) {
+        console.log(response);
+        if (response.data.message === undefined) {
+          props.history.push("/");
+        } else {
+          console.log(response.data.message);
           errorMessage.push(response.data.message);
           setIfError(true);
+          return(false);
         }
-        props.history.push("/login");
       })
       .catch((error) => {
         errorMessage.push(error.message);
@@ -65,7 +68,7 @@ function DailyReportForm(props) {
     // <div className="main-inner">
 
     <div>
-      <Modal.Header >
+      <Modal.Header>
         <div>
           <Modal.Title>
             <h1>Daily Report Form</h1>
