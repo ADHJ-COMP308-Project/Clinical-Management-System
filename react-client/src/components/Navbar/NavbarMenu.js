@@ -88,7 +88,15 @@ function NavBarMenu(props) {
                 </div>
               ) : (
                 <div>
-                  <Nav.Link href="patientList">Patient List</Nav.Link>
+                  <NavDropdown title="Options" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="/patientList">
+                      Patient List
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/nursereports">
+                      Nurse Reports
+                    </NavDropdown.Item>
+                  </NavDropdown>
+
                 </div>
               )}
             </Nav>
