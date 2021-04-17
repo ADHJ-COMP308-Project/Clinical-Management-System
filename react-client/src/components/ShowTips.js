@@ -29,10 +29,9 @@ function ShowTips(props) {
   }, []);
 
   return (
-    <div className="container">
-      <div className="outer-wrapper">
-        <div className="auth-wrapper">
-          <div className="auth-inner">
+      <div className="">
+        <div className="main-wrapper">
+          <div className="main-inner">
             <div className="">
               <h1>Motivational Tips</h1>
             </div>
@@ -101,7 +100,6 @@ function ShowTips(props) {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

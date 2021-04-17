@@ -89,7 +89,7 @@ body, html, .App, #root, .auth-wrapper {
   min-width: 100vh;
   padding: 8vh 30px 8vh 30px;
   background: #ffffff;
-  border-radius: 1px;
+  border-radius: 3px;
   transition: all .3s; 
   /* margin:0;
   padding: 20px 30px 20px 30px;

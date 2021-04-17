@@ -48,7 +48,7 @@ function PatientList(props) {
     history.push({
       pathname: '/patientReportHistory',
       state: {
-        patientId: id
+        patientId: id,
       },
     })
   };
