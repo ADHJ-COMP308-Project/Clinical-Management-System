@@ -15,6 +15,7 @@ import "./App.css";
 import axios from "axios";
 
 import PatientRegistration from "./components/PatientRegistration";
+import NurseDailyReportForm from "./components/Forms/NurseDailyReportForm";
 import NurseRegistration from "./components/NurseRegistration";
 import Login from "./components/Login";
 import NavBarMenu from "./components/Navbar/NavbarMenu";
@@ -86,6 +87,7 @@ function App() {
             <Route path="/showTips" render={() => <ShowTips />} />
             <Route render={() => <StrokeAI />} path="/StrokeAI" />
             <Route render={() => <AIResult />} path="/AIResult" />
+            <Route path="/nurseDailyReports" render={() => <NurseDailyReportForm />} />
           </div>
         </div>
         <Footer className="" />
