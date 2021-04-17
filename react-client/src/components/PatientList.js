@@ -12,6 +12,7 @@ function PatientList(props) {
 
   const [patientList, setPatientList] = useState([]);
   const [ifError, setIfError] = useState(false);
+  const [patient, setPatient] = useState("");
 
   const getPatientList = () => {
     const apiUrl = "http://localhost:3000/patients";
@@ -28,6 +29,15 @@ function PatientList(props) {
         }
       })
       .catch((err) => console.log("Some error: " + err));
+  };
+
+  const showReport = (id) => {
+    props.history.push({
+      pathname: "/patientreporthistory",
+      setState: {
+        patientId: id
+      },
+    });
   };
 
   useEffect(() => {
@@ -49,9 +59,9 @@ function PatientList(props) {
                       <ListGroup.Item
                         className="  mb-auto bg-white"
                         key={idx}
-                        // onClick={() => {
-                        //   //showReport(item._id)
-                        // }}
+                        onClick={() => {
+                          showReport(item._id)
+                        }}
                       >
                         {item.fullName}
                       </ListGroup.Item>

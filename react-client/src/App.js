@@ -28,12 +28,14 @@ import ShowTips from "./components/ShowTips";
 import StrokeAI from "./components/StrokeAI";
 import AIResult from "./components/AIResults";
 import Footer from "./components/Footer";
+import PatientReportHistory from "./components/PatientReportHistory";
 
 // import Main from "./components/Main";
 
-function App() {
+function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authData, setAuthData] = useState({});
+  const [patientId, setPatientId] = useState();
 
   return (
     <Router>
@@ -88,6 +90,10 @@ function App() {
             <Route render={() => <StrokeAI />} path="/StrokeAI" />
             <Route render={() => <AIResult />} path="/AIResult" />
             <Route path="/nurseReports" render={() => <NurseReportForm />} />
+            <Route path="/patientReportHistory" render={() => 
+            <PatientReportHistory 
+            
+            />} />
           </div>
         </div>
         <Footer className="" />
