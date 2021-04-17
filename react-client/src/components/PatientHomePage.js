@@ -58,7 +58,7 @@ function PatientHomePage(props) {
               timeDifference / (1000 * 60 * 60 * 24)
             );
             console.log("dayDifference: " + dayDifference);
-            if (dayDifference > 0) {
+            if (dayDifference > 1) {
               //changed 1 to 0 for testing
               setDailyReportRequired(true);
             } else {

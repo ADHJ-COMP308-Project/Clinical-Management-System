@@ -72,7 +72,7 @@ function App() {
         />
 
         <div className="container">
-          <div classname="main-wrapper">
+          <div>
             <Route path="/dailyReportForm" render={() => <DailyReportForm />} />
             <Route
               path="/emergencyAlertForm"
