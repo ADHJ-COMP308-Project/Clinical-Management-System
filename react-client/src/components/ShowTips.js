@@ -29,69 +29,76 @@ function ShowTips(props) {
   }, []);
 
   return (
-    <div className="">
-      <div className="tips-inner">
-        <div className="">
-          <h1>Motivational Tips</h1>
-        </div>
-        <hr className="shadow"
-          style={{
-            backgroundColor: "rgba(66,133,244,.8)",
-            height: "1px",
-          }}
-        />
-        {showLoading ? (
-          <div className="text-center">
-            <Spinner className="mt-5" animation="border" role="status">
-              <span className="sr-only">Waiting for results...</span>
-            </Spinner>
-          </div>
-        ) : (
-          <div>
-            {tips.length < 1 ? (
-              <div>
-                <div className="alert alert-danger">No tips</div>
+    <div className="container">
+      <div className="outer-wrapper">
+        <div className="auth-wrapper">
+          <div className="auth-inner">
+            <div className="">
+              <h1>Motivational Tips</h1>
+            </div>
+            <hr
+              className="shadow"
+              style={{
+                backgroundColor: "rgba(66,133,244,.8)",
+                height: "1px",
+              }}
+            />
+            {showLoading ? (
+              <div className="text-center">
+                <Spinner className="mt-5" animation="border" role="status">
+                  <span className="sr-only">Waiting for results...</span>
+                </Spinner>
               </div>
             ) : (
               <div>
-                {tips.map((item, index) => {
-                  return (
-                    <div className="text-left">
-                      <Card className="shadow mt-2 bg-white rounded ">
-                        <Card.Header
-                          key={index}
-                          className="font-weight-bold text-white text-capitalize"
-                          style={{ backgroundColor: "rgba(66,133,244,.8)" }}
-                        >
-                          {item.subject}
-                        </Card.Header>
-                        <Card.Body>
-                          <Card.Text className="ml-3 text-capitalize">
-                            {item.author.fullName} {"posted "}
-                            {item.createdAt
-                              .toString()
-                              .substring(0, 19)
-                              .replace("T", " ")
-                              .replace("Z", "")}
-                          </Card.Text>
-                          <hr
-                            style={{
-                              backgroundColor: "rgba(66,133,244,.8)",
-                              height: "1px",
-                            }}
-                          />
-                          <Card.Text className="ml-5">
-                            {item.tipMessage}
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </div>
-                  );
-                })}
+                {tips.length < 1 ? (
+                  <div>
+                    <div className="alert alert-danger">No tips</div>
+                  </div>
+                ) : (
+                  <div>
+                    {tips.map((item, index) => {
+                      return (
+                        <div>
+                          <Card className="shadow mt-2 bg-white rounded ">
+                            <Card.Header
+                              key={index}
+                              className="font-weight-bold text-white text-capitalize"
+                              style={{
+                                backgroundColor: "rgba(66,133,244,.8)",
+                              }}
+                            >
+                              {item.subject}
+                            </Card.Header>
+                            <Card.Body>
+                              <Card.Text className="ml-3 text-capitalize">
+                                {item.author.fullName} {"posted "}
+                                {item.createdAt
+                                  .toString()
+                                  .substring(0, 19)
+                                  .replace("T", " ")
+                                  .replace("Z", "")}
+                              </Card.Text>
+                              <hr
+                                style={{
+                                  backgroundColor: "rgba(66,133,244,.8)",
+                                  height: "1px",
+                                }}
+                              />
+                              <Card.Text className="ml-5">
+                                {item.tipMessage}
+                              </Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

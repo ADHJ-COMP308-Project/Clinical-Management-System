@@ -35,29 +35,35 @@ function PatientList(props) {
   }, []);
 
   return (
-    <div className="tips-inner">
-      <div className="bg-white">
-        <h2>Patient List</h2>
-        <hr className="hr-primary" />
-        {patientList.length !== 0 ? (
-          <div>
-            <ListGroup className="scrollbar scrollbar-primary  mt-3 mx-auto">
-              {patientList.map((item, idx) => (
-                <ListGroup.Item
-                  className="  mb-auto bg-white"
-                  key={idx}
-                  // onClick={() => {
-                  //   //showReport(item._id)
-                  // }}
-                >
-                  {item.fullName}
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+    <div className="container">
+      <div className="outer-wrapper">
+        <div className="auth-wrapper">
+          <div className="auth-inner">
+            <div className="bg-white">
+              <h2>Patient List</h2>
+              <hr className="hr-primary" />
+              {patientList.length !== 0 ? (
+                <div>
+                  <ListGroup className="scrollbar scrollbar-primary  mt-3 mx-auto">
+                    {patientList.map((item, idx) => (
+                      <ListGroup.Item
+                        className="  mb-auto bg-white"
+                        key={idx}
+                        // onClick={() => {
+                        //   //showReport(item._id)
+                        // }}
+                      >
+                        {item.fullName}
+                      </ListGroup.Item>
+                    ))}
+                  </ListGroup>
+                </div>
+              ) : (
+                <div>No emergency alerts</div>
+              )}
+            </div>
           </div>
-        ) : (
-          <div>No emergency alerts</div>
-        )}
+        </div>
       </div>
     </div>
   );
