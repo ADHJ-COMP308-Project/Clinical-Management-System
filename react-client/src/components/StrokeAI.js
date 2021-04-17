@@ -39,7 +39,7 @@ function StrokeAI(props) {
         const result = await axios.post(apiUrl, data);
 
         if (result.data.Status !== undefined) {
-          setStatus(result.data.Status);
+          setStatus("Yes");
           settestResult(result.data.resultForTest1);
         }
       }
