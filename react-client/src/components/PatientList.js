@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
@@ -8,11 +18,12 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 
 function PatientList(props) {
-  console.log(props);
+  let history = useHistory();
 
+  console.log(props);
   const [patientList, setPatientList] = useState([]);
   const [ifError, setIfError] = useState(false);
-  const [patient, setPatient] = useState("");
+  const { patientId, setPatientId } = props;
 
   const getPatientList = () => {
     const apiUrl = "http://localhost:3000/patients";
@@ -32,12 +43,14 @@ function PatientList(props) {
   };
 
   const showReport = (id) => {
-    props.history.push({
-      pathname: "/patientreporthistory",
-      setState: {
+    console.log(id);
+    setPatientId(id);
+    history.push({
+      pathname: '/patientReportHistory',
+      state: {
         patientId: id
       },
-    });
+    })
   };
 
   useEffect(() => {
@@ -60,7 +73,7 @@ function PatientList(props) {
                         className="  mb-auto bg-white"
                         key={idx}
                         onClick={() => {
-                          showReport(item._id)
+                          showReport(item._id);
                         }}
                       >
                         {item.fullName}

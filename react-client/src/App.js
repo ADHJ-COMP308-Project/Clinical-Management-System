@@ -85,15 +85,28 @@ function App(props) {
               path="/showEmergencyAlert/:id"
               render={() => <ShowEmergencyAlert />}
             />
-            <Route path="/patientList" render={() => <PatientList />} />
+            <Route
+              path="/patientList"
+              render={() => (
+                <PatientList
+                  patientId={patientId}
+                  setPatientId={setPatientId}
+                />
+              )}
+            />
             <Route path="/showTips" render={() => <ShowTips />} />
             <Route render={() => <StrokeAI />} path="/StrokeAI" />
             <Route render={() => <AIResult />} path="/AIResult" />
             <Route path="/nurseReports" render={() => <NurseReportForm />} />
-            <Route path="/patientReportHistory" render={() => 
-            <PatientReportHistory 
-            
-            />} />
+            <Route
+              path="/patientReportHistory"
+              render={() => (
+                <PatientReportHistory
+                  patientId={patientId}
+                  setPatientId={setPatientId}
+                />
+              )}
+            />
           </div>
         </div>
         <Footer className="" />

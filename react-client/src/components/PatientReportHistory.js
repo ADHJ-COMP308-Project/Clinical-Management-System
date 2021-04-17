@@ -5,10 +5,11 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import { withRouter } from "react-router-dom";
 import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
 
 function PatientReportHistory(props) {
-    console.log(props);
-    const patientId = props.history.location.state.patientId;
+  console.log(props);
+  const { patientId } = props;
   const [reports, setReports] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
   const apiUrl = "http://localhost:5000/api/dailyReports/users/" + patientId;
@@ -32,9 +33,8 @@ function PatientReportHistory(props) {
 
   return (
     <div className="container">
-      <div className="outer-wrapper">
-        <div className="auth-wrapper">
-          <div className="auth-inner">
+        <div className="main-wrapper">
+          <div className="main-inner">
             <div className="">
               <h1>Daily Reports</h1>
             </div>
@@ -59,49 +59,36 @@ function PatientReportHistory(props) {
                   </div>
                 ) : (
                   <div>
-                    {reports.map((item, index) => {
-                      return (
-                        <div>
-                          <Card className="shadow mt-2 bg-white rounded ">
-                            <Card.Header
-                              key={index}
-                              className="font-weight-bold text-white text-capitalize"
-                              style={{
-                                backgroundColor: "rgba(66,133,244,.8)",
-                              }}
-                            >
-                              {item.patient.username}
-                            </Card.Header>
-                            <Card.Body>
-                              <Card.Text className="ml-5">
-                                {item.bodyTemprature}
-                              </Card.Text>
-                              <Card.Text className="ml-5">
-                                {item.pulseRate}
-                              </Card.Text>
-                              <Card.Text className="ml-5">
-                                {item.systolicBloodPressure}
-                              </Card.Text>
-                              <Card.Text className="ml-5">
-                                {item.diastolicBloodPressure}
-                              </Card.Text>
-                              <Card.Text className="ml-5">
-                                {item.respiratoryRate}
-                              </Card.Text>
-                              <hr
-                                style={{
-                                  backgroundColor: "rgba(66,133,244,.8)",
-                                  height: "1px",
-                                }}
-                              />
-                              <Card.Text className="ml-5">
-                                {item.tipMessage}
-                              </Card.Text>
-                            </Card.Body>
-                          </Card>
-                        </div>
-                      );
-                    })}
+                    <Table striped bordered>
+                      <thead>
+                        <tr>
+                          <th>Timestamp</th>
+                          <th>Body Temprature</th>
+                          <th>Pulse Rate</th>
+                          <th>Systolic Blood Pressure</th>
+                          <th>Diastolic Blood Pressure</th>
+                          <th>Respiratory Rate</th>
+                        </tr>
+                      </thead>
+                      {reports.map((item, index) => {
+                        return (
+                          <tr>
+                            <td>
+                              {item.createdAt
+                                .toString()
+                                .substring(0, 19)
+                                .replace("T", " ")
+                                .replace("Z", "")}
+                            </td>
+                            <td>{item.bodyTemprature}</td>
+                            <td>{item.pulseRate}</td>
+                            <td>{item.systolicBloodPressure}</td>
+                            <td>{item.diastolicBloodPressure}</td>
+                            <td>{item.respiratoryRate}</td>
+                          </tr>
+                        );
+                      })}
+                    </Table>
                   </div>
                 )}
               </div>
@@ -109,7 +96,6 @@ function PatientReportHistory(props) {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
